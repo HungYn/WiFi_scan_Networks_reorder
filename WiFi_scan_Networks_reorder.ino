@@ -53,6 +53,6 @@ void loop()
     }
   }
   Serial.println("");
-  // Wait a bit before scanning again
+  // 稍等片刻再掃描
   delay(5000);
 }
