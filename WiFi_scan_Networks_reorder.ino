@@ -15,7 +15,7 @@ void loop()
 {
   Serial.println("scan start");
 
-  int n = WiFi.scanNetworks();
+  int n = WiFi.scanNetworks(); //取得WiFi基地台
   Serial.println("掃描完成");
   if (n == 0) {
     Serial.println("沒有發現任何網路");
