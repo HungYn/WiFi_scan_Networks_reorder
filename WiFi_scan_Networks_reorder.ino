@@ -44,11 +44,11 @@ void loop()
       int j = indices[i];
       Serial.print(i + 1);
       Serial.print(": ");
-      Serial.print(WiFi.SSID(j));
+      Serial.print(WiFi.SSID(j));//Wifi 的SSID名稱
       Serial.print(" (");
-      Serial.print(WiFi.RSSI(j));
+      Serial.print(WiFi.RSSI(j));//Wifi 的訊號為多少dBm
       Serial.print(")");
-      Serial.println((WiFi.encryptionType(j) == WIFI_AUTH_OPEN) ? " " : "*");
+      Serial.println((WiFi.encryptionType(j) == WIFI_AUTH_OPEN) ? "開放" : "加密");//Wifi 的加密模式
       delay(10);
     }
   }
