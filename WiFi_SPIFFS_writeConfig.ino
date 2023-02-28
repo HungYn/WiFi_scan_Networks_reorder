@@ -1,9 +1,9 @@
 #include <SPIFFS.h>
 #include <WiFi.h>
-#include <Button.h>
+#include <Button.h>  //https://github.com/madleech/Button
 #define LED_PIN     2   // 定義LED腳位
 Button buttonA(0);  //按鈕按下開始運作
-Button buttonB(39);  //按鈕按下開始運作
+byte meniu = 0; //選單
 
 String ssid = "";
 String password = "";
@@ -15,7 +15,6 @@ void setup() {
   Serial.begin(115200);
   SPIFFS.begin(true);
   buttonA.begin();
-  buttonB.begin();
   pinMode(LED_PIN, OUTPUT);
 
   if (!SPIFFS.exists(filepath)) {
@@ -46,14 +45,26 @@ void setup() {
 }
 
 void loop() {
-  if (buttonA.pressed()) { //A按鈕按下後執行
-    Led_No_Off() ;
-    modifyCredentials();
-  }
-  if (buttonB.pressed()) { //B按鈕按下後執行
-    listDir(SPIFFS, "/", 0);
-  }
 
+  if (buttonA.pressed()) { //B按鈕按下後執行
+    meniu = meniu + 1;
+
+    if (meniu > 3) {
+      meniu = 0;
+    }
+
+    if  (meniu == 0) {
+      Led_No_Off() ;
+      modifyCredentials();
+    }
+    if (meniu == 1) {
+      Led_No_Off() ;
+      listDir(SPIFFS, "/", 0);
+    }
+    if (meniu == 2) {
+      readConfig(ssid, password);
+    }
+  }
 }
 
 void readConfig(String& ssid, String& password) {
@@ -167,4 +178,3 @@ void listDir(fs::FS &fs, const char * dirname, uint8_t levels) {
     file = root.openNextFile();
   }
 }
-
